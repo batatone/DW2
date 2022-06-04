@@ -302,3 +302,8 @@ footer {
 img {
   cursor: pointer;
 }
+
+.wrong {
+  border: solid 2px;
+  border-color: red;
+}
