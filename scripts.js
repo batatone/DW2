@@ -1,12 +1,19 @@
 const Modal = {
   open() {
     //abrir modal
-
     document.querySelector('.modal-overlay').classList.add('active');
   },
+  
+  resetModalState() {
+    Form.date.classList.remove('wrong');
+    Form.description.classList.remove('wrong');
+    Form.amount.classList.remove('wrong');
+  },
+
   close() {
     //fechar
     document.querySelector('.modal-overlay').classList.remove('active');
+    this.resetModalState();
   },
 };
 
@@ -24,6 +31,10 @@ const Form = {
   amount: document.querySelector('input#amount'),
   date: document.querySelector('input#date'),
 
+  setError(name) {
+    Form[name].classList.add('wrong');
+  },
+
   getValues() {
     return {
       description: this.description.value,
@@ -36,6 +47,7 @@ const Form = {
     const { description, amount, date } = this.getValues();
 
     if (description.length > 75) {
+      Form.setError('description');
       throw new Error('A descrição não deve ser maior que 100 caracteres');
     }
 
@@ -43,6 +55,7 @@ const Form = {
     const currentTime = new Date(new Date().toJSON().slice(0, 10).replace(/-/g, '/'));
 
     if (currentTime.valueOf() >= choosenTime.valueOf()) {
+      Form.setError('date');
       throw new Error('A data não pode ser anterior a data de hoje');
     }
 
