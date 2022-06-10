@@ -1,4 +1,5 @@
 import { isCPFValid } from './modules/valid.js';
+import './modules/mask.js'
 
 document.querySelector('.form').addEventListener('submit', (event) => {
   validate(event);
